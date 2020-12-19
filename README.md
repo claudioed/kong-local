@@ -15,7 +15,7 @@ It is a simple recipe to spin-up a [Kong API Gateway](https://konghq.com/kong/) 
 ### Installing kong
 
 1. Go to [kong folder](kind)    
-2. Execute [script](kong/kong.sh)
+2. Execute [script](kong/local-kind/kong.sh)
 
 ```shell
 ./kong.sh

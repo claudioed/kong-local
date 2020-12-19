@@ -1,0 +1,28 @@
+services:
+  - name: players-api
+    url: "http://players.bets.svc.cluster.local:9999"
+    retries: 3
+    tags:
+    - bets-apps
+    routes:
+      - name: players
+        paths:
+          - /api/players
+        methods:
+          - GET
+    plugins:
+      - name: prometheus
+      - name: rate-limiting
+        config:
+          second: 1000
+          policy: local
+          hide_client_headers: true
+      - name: correlation-id
+        config:
+          header_name: Kong-Request-ID
+          generator: uuid#counter
+          echo_downstream: true
+      - name: tcp-log
+        config:
+          host: fluentd.logging.svc.cluster.local
+          port: 24224
